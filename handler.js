@@ -4,7 +4,7 @@ const completeUrl = "https://www.google.com";
 const axios = require("axios");
 const reCapUrl = "https://www.google.com/recaptcha/api/siteverify";
 // put this key into .env file
-const reCaptchaSecret = "6LfJKqgUAAAAAM8uP4BQK9llbZQlrNnUM7yJXBJ4";
+const reCaptchaSecret = "yourSecret";
 // we need to grab this from Amazon SNS
 const snsTopic =
   "arn:aws:sns:us-east-2:438279605040:ContactFormTopic:86db0391-870a-41bf-a8fd-9ef9e0772c5b";
