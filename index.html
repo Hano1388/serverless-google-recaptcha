@@ -1,0 +1,74 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+</head>
+
+<body>
+
+    <div class="container">
+        <h1>Test Google Recaptcha</h1>
+        <form id="recaptcha-test-form">
+            <div class="form-group">
+                <label for="fullname">Full Name</label>
+                <input type="text" name="FULLNAME" id="fullname" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="text" name="EMAIL" id="email" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label for="phone">Phone</label>
+                <input type="text" name="PHONE" id="phone" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label for="subject">Subject</label>
+                <input type="text" name="SUBJECT" id="subject" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label for="message">Message</label>
+                <input type="text" name="MESSAGE" id="message" class="form-control" />
+            </div>
+            <div class="form-group">
+                <div class="g-recaptcha" data-sitekey="6LfJKqgUAAAAAMSuJaSI6T7XhEYK413uAlzbX1Iz" data-callback=”ccb”>
+                </div>
+            </div>
+
+            <input type="submit" value="Submit" class="btn btn-primary pull-right" />
+        </form>
+    </div>
+
+    <script>
+        function ccb(response) {
+            $(':input[type="submit"]').prop('disabled', false);
+            const FULLNAME = document.querySelector('#FULLNAME').value;
+            const EMAIL = document.querySelector('#EMAIL').value;
+            const SUBJECT = document.querySelector('#SUBJECT').value;
+            const MESSAGE = document.querySelector('#MESSAGE').value;
+            fetch('https://eozphfj9xi.execute-api.us-east-1.amazonaws.com/dev/contactForm', {
+                    method: 'POST',
+                    headers: {
+                        'Accept': 'application/json, text/plain',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(({
+                        FULLNAME,
+                        EMAIL,
+                        SUBJECT,
+                        MESSAGE
+                    }))
+                })
+                .then(res => res.json())
+                .then(data => {
+                    console.log(data);
+                })
+        }
+    </script>
+</body>
+
+</html>
